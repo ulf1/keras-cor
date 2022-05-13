@@ -67,7 +67,7 @@ class CorrOutputsRegularizer(tf.keras.layers.Layer):
     """
     def __init__(self, target_corr, cor_rate: float = 1e-3):
         super(CorrOutputsRegularizer, self).__init__()
-        self.target_corr = target_corr
+        self.target_corr = tf.cast(target_corr, dtype=tf.float32)
         self.cor_rate = cor_rate
 
     def call(self, h):
