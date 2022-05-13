@@ -7,6 +7,7 @@
 Add a regularization if the features/columns/neurons the hidden layer or output layer should be correlated. The vector with target correlation coefficient is computed before the optimization, and compared with correlation coefficients computed across the batch examples.
 
 ## Usage
+See [demo notebook](demo/Correlated%20Outputs%20Regularization.ipynb)
 
 ```py
 from keras_cor import CorrOutputsRegularizer
@@ -18,7 +19,7 @@ def build_mymodel(input_dim, target_corr, cor_rate=0.1,
     inputs = tf.keras.Input(shape=(input_dim,))
     h = tf.keras.layers.Dense(units=output_dim)(inputs)
     h = tf.keras.layers.Activation(activation)(h)
-    outputs = CorrOutputsRegularizer(target_corr, cor_rate)(h)
+    outputs = CorrOutputsRegularizer(target_corr, cor_rate)(h)  # <= HERE
     model = tf.keras.Model(inputs=inputs, outputs=outputs)
     return model
 
