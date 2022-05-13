@@ -3,12 +3,16 @@
     "name": "Ulf Hamster",
     "orcid": "0000-0002-0440-4868"
   }],
-  "title": "template_pypi: Lorem Ipsum",
-  "description": "Lorem Ipsum.",
+  "title": "keras-cor : Correlated Outputs Regularization",
+  "description": "Add a regularization if the features/columns/neurons the hidden layer or output layer should be correlated. The vector with target correlation coefficient is computed before the optimization, and compared with correlation coefficients computed across the batch examples.",
   "license": "Apache-2.0",
   "upload_type": "software",
   "keywords": [
-    "keyword 1",
-    "keyword 2"
+    "keras",
+    "tensorflow",
+    "neural networks",
+    "regularization",
+    "loss function",
+    "correlated outputs"
   ]
 }

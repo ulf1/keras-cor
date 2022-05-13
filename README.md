@@ -1,55 +1,65 @@
-[![PyPI version](https://badge.fury.io/py/template_pypi.svg)](https://badge.fury.io/py/template_pypi)
-[![PyPi downloads](https://img.shields.io/pypi/dm/template_pypi)](https://img.shields.io/pypi/dm/template_pypi)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4284804.svg)](https://doi.org/10.5281/zenodo.4284804)
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/myorg/template_pypi/master?urlpath=lab)
-[![Gitpod - Code Now](https://img.shields.io/badge/Gitpod-code%20now-blue.svg?longCache=true)](https://gitpod.io#https://github.com/myorg/template_pypi)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/myorg/template_pypi.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/myorg/template_pypi/alerts/)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/myorg/template_pypi.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/myorg/template_pypi/context:python)
+[![PyPI version](https://badge.fury.io/py/keras-cor.svg)](https://badge.fury.io/py/keras-cor)
+[![PyPi downloads](https://img.shields.io/pypi/dm/keras-cor)](https://img.shields.io/pypi/dm/keras-cor)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/satzbeleg/keras-cor.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/satzbeleg/keras-cor/alerts/)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/satzbeleg/keras-cor.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/satzbeleg/keras-cor/context:python)
 
-# template_pypi
-
-## DELETE THIS LATER 
-Download template_pypi and rename it
-
-```
-git clone git@github.com:kmedian/template_pypi.git mycoolpkg
-cd mycoolpkg
-bash rename.sh "myorg" "mycoolpkg" "Real Name"
-```
-
-Reinitialize the repo:
-
-```
-rm -rf .git
-git init
-git remote add origin git@github.com:myorg/mycoolpkg.git
-```
-
+# keras-cor : Correlated Outputs Regularization
+Add a regularization if the features/columns/neurons the hidden layer or output layer should be correlated. The vector with target correlation coefficient is computed before the optimization, and compared with correlation coefficients computed across the batch examples.
 
 ## Usage
 
-Table of Contents
+```py
+from keras_cor import CorrOutputsRegularizer
+import tensorflow as tf
 
-* [Use Case 1](#use-case-1)
+# Simple regression NN
+def build_mymodel(input_dim, target_corr, cor_rate=0.1, 
+                  activation="sigmoid", output_dim=3):
+    inputs = tf.keras.Input(shape=(input_dim,))
+    h = tf.keras.layers.Dense(units=output_dim)(inputs)
+    h = tf.keras.layers.Activation(activation)(h)
+    outputs = CorrOutputsRegularizer(target_corr, cor_rate)(h)
+    model = tf.keras.Model(inputs=inputs, outputs=outputs)
+    return model
 
+# Gneerate toy dataset
+BATCH_SZ = 128
+INPUT_DIM = 64
+OUTPUT_DIM = 3
 
-### Use Case 1
+X_train = tf.random.normal([BATCH_SZ, INPUT_DIM])
+y_train = tf.random.normal([BATCH_SZ, OUTPUT_DIM])
 
+# Normally you should comput `target_corr` based on your target outputs `y_train`
+# e.g., target_corr = tf.constant(y_train)
+# However, you can also use subjective correlations (aka expert opinions), e.g.,
+target_corr = tf.constant([.5, -.4, .9])
+
+# Optimization
+model = build_mymodel(input_dim=INPUT_DIM, target_corr=target_corr, output_dim=OUTPUT_DIM)
+model.compile(optimizer=tf.keras.optimizers.Adam(), loss="mean_squared_error")
+history = model.fit(X_train, y_train, verbose=1, epochs=2)
+
+# Inference
+yhat = model.predict(X_train)
+rhos = pearson_vec(yhat)
+rhos
+```
 
 ## Appendix
 
 ### Installation
-The `template_pypi` [git repo](http://github.com/myorg/template_pypi) is available as [PyPi package](https://pypi.org/project/template_pypi)
+The `keras-cor` [git repo](http://github.com/satzbeleg/keras-cor) is available as [PyPi package](https://pypi.org/project/keras-cor)
 
 ```sh
-pip install template_pypi
-pip install git+ssh://git@github.com/myorg/template_pypi.git
+pip install keras-cor
+pip install git+ssh://git@github.com/satzbeleg/keras-cor.git
 ```
 
 ### Install a virtual environment
 
 ```sh
-python3.6 -m venv .venv
+python3.7 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt --no-cache-dir
@@ -84,8 +94,8 @@ rm -r .venv
 
 
 ### Support
-Please [open an issue](https://github.com/myorg/template_pypi/issues/new) for support.
+Please [open an issue](https://github.com/satzbeleg/keras-cor/issues/new) for support.
 
 
 ### Contributing
-Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/myorg/template_pypi/compare/).
+Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/satzbeleg/keras-cor/compare/).
