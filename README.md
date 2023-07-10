@@ -1,7 +1,6 @@
 [![PyPI version](https://badge.fury.io/py/keras-cor.svg)](https://badge.fury.io/py/keras-cor)
 [![PyPi downloads](https://img.shields.io/pypi/dm/keras-cor)](https://img.shields.io/pypi/dm/keras-cor)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/satzbeleg/keras-cor.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/satzbeleg/keras-cor/alerts/)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/satzbeleg/keras-cor.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/satzbeleg/keras-cor/context:python)
+
 
 # keras-cor : Correlated Outputs Regularization
 Add a regularization if the features/columns/neurons the hidden layer or output layer should be correlated. The vector with target correlation coefficient is computed before the optimization, and compared with correlation coefficients computed across the batch examples.
@@ -50,11 +49,11 @@ rhos
 ## Appendix
 
 ### Installation
-The `keras-cor` [git repo](http://github.com/satzbeleg/keras-cor) is available as [PyPi package](https://pypi.org/project/keras-cor)
+The `keras-cor` [git repo](http://github.com/ulf1/keras-cor) is available as [PyPi package](https://pypi.org/project/keras-cor)
 
 ```sh
 pip install keras-cor
-pip install git+ssh://git@github.com/satzbeleg/keras-cor.git
+pip install git+ssh://git@github.com/ulf1/keras-cor.git
 ```
 
 ### Install a virtual environment
@@ -79,7 +78,6 @@ pip install -r requirements-demo.txt --no-cache-dir
 Publish
 
 ```sh
-pandoc README.md --from markdown --to rst -s -o README.rst
 python setup.py sdist 
 twine upload -r pypi dist/*
 ```
@@ -95,8 +93,8 @@ rm -r .venv
 
 
 ### Support
-Please [open an issue](https://github.com/satzbeleg/keras-cor/issues/new) for support.
+Please [open an issue](https://github.com/ulf1/keras-cor/issues/new) for support.
 
 
 ### Contributing
-Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/satzbeleg/keras-cor/compare/).
+Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/ulf1/keras-cor/compare/).
