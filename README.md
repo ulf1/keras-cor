@@ -1,6 +1,6 @@
 [![PyPI version](https://badge.fury.io/py/keras-cor.svg)](https://badge.fury.io/py/keras-cor)
 [![PyPi downloads](https://img.shields.io/pypi/dm/keras-cor)](https://img.shields.io/pypi/dm/keras-cor)
-
+[![DOI](https://zenodo.org/badge/491846305.svg)](https://zenodo.org/badge/latestdoi/491846305)
 
 # keras-cor : Correlated Outputs Regularization
 Add a regularization if the features/columns/neurons the hidden layer or output layer should be correlated. The vector with target correlation coefficient is computed before the optimization, and compared with correlation coefficients computed across the batch examples.
